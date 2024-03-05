@@ -1,7 +1,9 @@
-package com.in28miutes.learnspringframework;
+package com.in28miutes.learnspringframework.helloworld;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 record Person(String name, int age, Address address){ };
 record Address(String firstLine, String city){ };
@@ -32,11 +34,19 @@ public class HelloWorldConfiguration {
         return new Person(name, age, address3);
     }
 
+    @Bean
+    @Primary
+    public Person person4Parameters(String name, int age, Address address){
+        return new Person(name, age, address);
+    }
+
     @Bean(name = "address2")
+    @Primary
     public Address address(){
     return new Address("Busumbu", "Limbe");
     }
     @Bean(name = "address3")
+    @Qualifier("address3qualifier")
     public Address address3(){
         return new Address("Mayor Street", "Buea");
     }
